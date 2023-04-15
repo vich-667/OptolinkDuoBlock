@@ -1,0 +1,21 @@
+Circuit: * D:\MeineDatein\Elektronik\Heimautomation\Heizung\Optolink\OptolinkDuoBlock\Simulation\OptolinkDuoBlock.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Fri Dec 31 02:53:15 2021
+Total elapsed time: 0.643 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 20432
+traniter = 20406
+tranpoints = 8458
+accept = 6881
+rejected = 1577
+matrix size = 42
+fillins = 7
+solver = Normal
+Matrix Compiler1: 3.00 KB object code size  1.2/0.4/[0.3]
+Matrix Compiler2: off  [0.3]/0.5/0.4
+

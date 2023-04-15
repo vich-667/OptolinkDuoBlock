@@ -1,0 +1,42 @@
+Circuit: * D:\MeineDatein\Elektronik\Heimautomation\Heizung\Optolink\OptolinkDuoBlock\Simulation\SFH309FA\testSFH309FA.asc
+
+Direct Newton iteration for .op point succeeded.
+Semiconductor Device Operating Points:
+                        --- Bipolar Transistors ---
+Name:     q:x1:2      q:x1:1
+Model:   x1:sfh309   x1:sfh309
+Ib:       3.19e-06    3.03e-06
+Ic:       2.11e-03    2.01e-03
+Vbe:      7.86e-01    7.79e-01
+Vbc:     -4.21e+00   -4.22e+00
+Vce:      5.00e+00    5.00e+00
+BetaDC:   6.61e+02    6.63e+02
+Gm:       7.44e-02    7.11e-02
+Rpi:      8.27e+03    8.71e+03
+Rx:       0.00e+00    0.00e+00
+Ro:       4.62e+04    4.84e+04
+Cbe:      2.22e-11    2.19e-11
+Cbc:      4.63e-12    4.63e-12
+Cjs:      0.00e+00    0.00e+00
+BetaAC:   6.15e+02    6.19e+02
+Cbx:      0.00e+00    0.00e+00
+Ft:       4.40e+08    4.26e+08
+
+
+
+Date: Fri Jul 31 16:52:56 2020
+Total elapsed time: 0.058 seconds.
+
+tnom = 27
+temp = 27
+method = trap
+totiter = 6
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
+matrix size = 10
+fillins = 0
+solver = Normal
+Matrix Compiler1: 400 bytes object code size
+Matrix Compiler2: 728 bytes object code size

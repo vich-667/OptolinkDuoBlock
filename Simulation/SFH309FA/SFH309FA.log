@@ -1,0 +1,10 @@
+Questionable use of curly braces in "b1 c n001  i=-i(b2)*(tbl(({{lambda}}),675,0,700,2,750,30,800,80,850,95,900,100,950,95,1000,80,1100,13,1130,6))*v(ee)/500"
+    Error: undefined symbol in: "[lambda]"
+Questionable use of curly braces in "b1 c n001  i=-i(b2)*(tbl((({lambda})),675,0,700,2,750,30,800,80,850,95,900,100,950,95,1000,80,1100,13,1130,6))*v(ee)/500"
+    Error: undefined symbol in: "[lambda]"
+Questionable use of curly braces in "i1 0 x {ipce/srel(950)*100}"
+    Error: undefined symbol in: "[ipce]/(tbl((950),675,0,700,2,750,30,800,80,850,95,900,100,950,95,1000,80,1100,13,1130,6))*100"
+Circuit: * D:\MeineDatein\Elektronik\Heimautomation\Heizung\HomeAutomation\SFH309FA\SFH309FA.asc
+
+Fatal Error: B1:  -- Syntax Error --
+Unknown symbol: lambda

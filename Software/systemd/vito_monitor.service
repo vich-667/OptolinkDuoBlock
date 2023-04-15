@@ -1,0 +1,33 @@
+# systemd unit file for Vito Monitor
+
+
+[Unit]
+
+# Human readable name of the unit
+Description=Vito Monitor for openHAB
+
+
+[Service]
+
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /home/vich/openHAB/optolink_duo_block/Software/http_server_main.py
+
+# Disable Python's buffering of STDOUT and STDERR, so that output from the# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+
+# Automatically restart the service if it crashes
+Restart=on-failure
+
+# Our service will notify systemd once it is up and running
+Type=notify
+
+
+[Install]
+
+# Tell systemd to automatically start this service when the system boots
+# (assuming the service is enabled)
+WantedBy=default.target
+
+
+
+

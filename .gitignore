@@ -1,0 +1,11 @@
+#pycharm
+.idea/
+#python stuff
+__pycache__/
+.venv/
+
+# debug data
+log_data
+
+# notes
+todo.md
