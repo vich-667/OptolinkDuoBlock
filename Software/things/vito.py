@@ -53,6 +53,7 @@ class Vito(IThing):
             try:
                 value_int = int(value.split(' ')[0])
                 self.vito_handler.write(channel_name, value_int)
+                log.info(f"Set to channel {channel_name} the value {value}.")
                 return True
             except Exception as e:
                 log.error(f"Can't set to channel {channel_name} the value {value}! Error: {e}")
