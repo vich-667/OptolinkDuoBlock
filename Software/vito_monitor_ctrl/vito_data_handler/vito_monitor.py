@@ -6,6 +6,7 @@ import logging
 import time
 
 from vito_monitor_ctrl.optolink_mac import OptolinkMac
+from vito_monitor_ctrl.vito_data_handler.sqlite_logging import LoggingDb
 from vito_monitor_ctrl.vito_data_handler.config_const import ValueAccess, ADDR, ACCESS, UNIT, LAST_VALUE, LAST_UPDATE
 from vito_monitor_ctrl.vito_data_handler.protocol_300 import Protocol300Frame, CorruptedFrame, Prot300MsgType, Prot300ReqType
 from vito_monitor_ctrl.vito_data_handler.vito_data_handler import VitoDataHandler, InvalidChName, UnsupportedWrite
@@ -14,12 +15,11 @@ logger = logging.getLogger("VitoMonitor")
 
 
 class VitoMonitor(VitoDataHandler):
-    def __init__(self, optolink_mac: OptolinkMac, config: dict):
+    def __init__(self, optolink_mac: OptolinkMac, config: dict, db_logfile: str = ""):
         super().__init__(optolink_mac=optolink_mac, config=config)
-
         self.__rcv_buffer = bytearray()
-
         self._optolink_mac.register_rcv_cb(self.receive_data_cb)
+        self._dblog = LoggingDb(filename=db_logfile) if db_logfile else None
 
     def receive_data_cb(self, rcv_data):
         self.__rcv_buffer += bytearray(rcv_data)
@@ -67,16 +67,23 @@ class VitoMonitor(VitoDataHandler):
             logger.debug(f"Req data: {frame}")
         if Prot300MsgType(frame.message_type) == Prot300MsgType.RESPONSE and Prot300ReqType(frame.request_type) == Prot300ReqType.VIRTUAL_READ:
             logger.debug(f"Rcv data: {frame}")
+            in_config = False
             for variable, var_dict in self._config.items():
                 if var_dict[ADDR] == frame.address and var_dict[ACCESS] & ValueAccess.MONITOR:
                     try:
-                        value = self._decode_data(frame.value, self._config[variable][UNIT])
+                        value = self._decode_data(frame.value, var_dict[UNIT])
                         logger.info(f'Found {variable} at {frame.address:02x} with new value {value}')
                         self._config[variable][LAST_VALUE] = value
                         self._config[variable][LAST_UPDATE] = time.time()
+                        if self._dblog:
+                            self._dblog.log(time.time(), frame.address, frame.value, variable, value)
                     except Exception as e:
                         logger.error(f'failed to decode {variable}, raised {e}')
+                    in_config = True
                     break
+
+            if self._dblog and not in_config:
+                self._dblog.log(time.time(), frame.address, frame.value)
 
     def read(self, channel_name: str):
         try:

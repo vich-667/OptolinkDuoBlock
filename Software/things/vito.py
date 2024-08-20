@@ -20,23 +20,25 @@ class Vito(IThing):
 
     def get_status(self):
         read_values = self.vito_handler.read_all()
-        read_dict = {
-            'min_age': float('inf'),
-            'max_age': 0
-            }
+
+        read_dict = {}
+        min_age = float('inf')
+        max_age = 0
         for elem in read_values:
-            read_dict[elem[0]] = elem[1]
             if elem[2]:
                 age = time.time() - elem[2]
-                if age > read_dict['max_age']:
-                    read_dict['max_age'] = age
-                if age < read_dict['min_age']:
-                    read_dict['min_age'] = age
+                if age > max_age:
+                    max_age = age
+                if age < min_age:
+                    min_age = age
+            else:
+                age = None
+            read_dict[elem[0]] = {'value': elem[1], 'age': age}
 
-        read_dict['is_alive'] = self.vito_handler.is_alive()
-        if read_dict['max_age'] == 0:
-            read_dict['max_age'] = float('inf')
-        read_dict['status'] = f"{'OK' if read_dict['is_alive'] else 'ERROR'} age is {read_dict['min_age']:.1f}-{read_dict['max_age']:.1f}s"
+        is_alive = self.vito_handler.is_alive()
+        if max_age == 0:
+            max_age = float('inf')
+        read_dict['status'] = f"{'OK' if is_alive else 'ERROR'} age is {min_age:.1f}-{max_age:.1f}s"
         return read_dict
 
     def set_value(self, channel, value):

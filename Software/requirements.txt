@@ -1,2 +1,3 @@
-pyserial
-texttable
+pyserial                                    # on rapsi: python3-pyserial (via automationhat)
+texttable                                   # on rapsi: python3-texttable (via automationhat)
+systemd-python; sys_platform == 'linux'     # on rapsi: python3-systemd (via automationhat)

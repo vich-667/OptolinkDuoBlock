@@ -119,6 +119,9 @@ class VitoDataHandler(abc.ABC):
             if value > 7:
                 raise ValueError(f"Type BA is enum between 0 and 7, got {value} from bytes {raw_bytes}")
             value = Mode(value).name
+        elif unit == 'BY':
+            # Decode a single byte for test logs
+            value = int.from_bytes(raw_bytes, byteorder='little', signed=False)
         else:
             raise ValueError(f"Can't decode type {unit}")
         return value
@@ -138,6 +141,8 @@ class VitoDataHandler(abc.ABC):
             if value > 7:
                 raise ValueError(f"Can't encode BA value is above 7: {value}")
             raw_bytes = int.to_bytes(value, length=1, byteorder='little', signed=False)
+        elif unit == 'BY':
+            raw_bytes = int.to_bytes(value, length=1, byteorder='little', signed=False)
         elif unit == 'CO':
             raw_bytes = int.to_bytes(value, length=4, byteorder='little', signed=True)
         elif unit == 'CS':
@@ -148,7 +153,7 @@ class VitoDataHandler(abc.ABC):
 
     @staticmethod
     def _unit_len(unit):
-        if unit == 'RT' or unit == 'WW' or unit == 'BA':
+        if unit == 'RT' or unit == 'WW' or unit == 'BA' or unit == 'BY':
             return 1
         elif unit == 'UT' or unit == 'UN':
             return 2

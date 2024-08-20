@@ -208,6 +208,7 @@ class VitoReadout(VitoDataHandler, threading.Thread):
                         resp.request_type == Prot300ReqType.VIRTUAL_WRITE and \
                         resp.address == self._config[channel_name][ADDR]:
                     write_ok = True
+                    logger.warning(f'Set {channel_name} with value {value} successfully to heating system.')
                 self._teardown_communication()
         except Exception as e:
             self._teardown_communication()

@@ -8,7 +8,7 @@ import time
 
 from vito_monitor_ctrl.optolink_mac import OptolinkMac, OptolinkMode
 from vito_monitor_ctrl.vito_data_handler import VitoMonitor, VitoReadout, InvalidChName, UnsupportedWrite
-from vito_monitor_ctrl.value_config import CONFIG
+from vito_monitor_ctrl.value_config import CONFIG, SQLITE_DB_NAME
 
 
 class VitocalHandler:
@@ -20,7 +20,7 @@ class VitocalHandler:
         self._optolink = OptolinkMac(**optolink_settings)
 
         # factor handlers
-        self._vito_data_handlers = [VitoMonitor(self._optolink, CONFIG), VitoReadout(self._optolink, CONFIG, readout_update)]
+        self._vito_data_handlers = [VitoMonitor(self._optolink, CONFIG, SQLITE_DB_NAME), VitoReadout(self._optolink, CONFIG, readout_update)]
 
     def read(self, channel_name: str):
         for handler in self._vito_data_handlers:
